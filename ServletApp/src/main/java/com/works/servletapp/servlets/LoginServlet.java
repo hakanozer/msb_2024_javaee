@@ -1,5 +1,7 @@
 package com.works.servletapp.servlets;
 
+import com.works.servletapp.services.LoginService;
+import com.works.servletapp.utils.DB;
 import com.works.servletapp.utils.Util;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -26,6 +28,16 @@ public class LoginServlet extends HttpServlet {
         resp.sendRedirect(Util.baseUrl+"login.jsp");
         //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
         //dispatcher.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        LoginService loginService = new LoginService();
+        String dbEmail = loginService.login(email, password);
+        System.out.println("Login Status: " + dbEmail);
+        resp.sendRedirect(Util.baseUrl+"login.jsp");
     }
 
     @Override
