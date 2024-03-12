@@ -12,5 +12,6 @@
 <body>
   Welcome Login
   <c:out value="merhaba"></c:out>
+  <c:out value="<%=request.getSession().getAttribute("data")%>"></c:out>
 </body>
 </html>
