@@ -1,5 +1,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  boolean errorStatus = false;
+  Object errorObj = request.getParameter("error");
+  if (errorObj != null) {
+    errorStatus = true;
+  }
+%>
 <!doctype html>
 <html lang="tr">
 <head>
@@ -12,7 +19,7 @@
       <div class="col-sm-4"></div>
       <div class="col-sm-4">
         <h2>User Login</h2>
-        <c:if test="${error != null}">
+        <c:if test="<%=errorStatus %>" >
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error!</strong> E-Mail or Passwod Fail
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
