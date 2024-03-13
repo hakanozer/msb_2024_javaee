@@ -1,5 +1,6 @@
 package com.works.servletapp.servlets;
 
+import com.works.servletapp.models.Customer;
 import com.works.servletapp.utils.Util;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -34,6 +35,8 @@ public class FilterConfig implements Filter {
                 res.sendRedirect(Util.baseUrl+"login.jsp");
             }else {
                 // Oturum var
+                Customer customer = (Customer) obj;
+                req.setAttribute("customer", customer);
                 filterChain.doFilter(req, res);
             }
         }else {

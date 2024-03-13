@@ -7,7 +7,7 @@
 <body>
   <div class="container">
       <jsp:include page="inc/navbar.jsp" />
-      <h2>Dashboard</h2>
+      <h2>Settings</h2>
   </div>
 </body>
 </html>
