@@ -9,8 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
-@WebServlet("/product")
+@WebServlet({"/product", "/productDelete"})
 public class ProductServlet extends HttpServlet {
 
     ProductService productService = new ProductService();
@@ -24,4 +25,16 @@ public class ProductServlet extends HttpServlet {
         resp.sendRedirect(Util.baseUrl+"dashboard.jsp");
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String stPid = req.getParameter("pid");
+        try {
+            int pid = Integer.valueOf(stPid);
+            productService.productDelete(pid);
+            resp.sendRedirect(Util.baseUrl+"dashboard.jsp");
+        }catch (Exception ex) {
+            req.getSession().removeAttribute("customer");
+            resp.sendRedirect(Util.baseUrl);
+        }
+    }
 }

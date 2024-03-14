@@ -53,7 +53,7 @@
                           <td>${item.price}</td>
                           <td>${item.detail}</td>
                           <td>
-                              <button class="btn btn-danger btn-sm">Delete</button>
+                              <a href="/productDelete?pid=${item.pid}" class="btn btn-danger btn-sm">Delete</a>
                           </td>
                       </tr>
                   </c:forEach>

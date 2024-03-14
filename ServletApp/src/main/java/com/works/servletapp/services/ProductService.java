@@ -30,7 +30,20 @@ public class ProductService {
     public List<Product> allProduct() {
         Session session = sf.openSession();
         List<Product> ls = session.createQuery("from Product").getResultList();
+        session.close();
         return ls;
+    }
+
+    public void productDelete( int pid ) {
+        Session session = sf.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Product pr = new Product();
+        pr.setPid(pid);
+        session.remove(pr);
+
+        tr.commit();
+        session.close();
     }
 
 }
