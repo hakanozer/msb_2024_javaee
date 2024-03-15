@@ -1,32 +1,38 @@
 package com.sakadream.jsf.controller;
 
 
+import com.sakadream.jsf.services.LoginService;
+import com.sakadream.jsf.utils.Util;
+import lombok.Data;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 @ManagedBean(name = "login")
 @RequestScoped
+@Data
 public class LoginController implements Serializable {
 
+    @ManagedProperty("email")
+    private String email;
+    @ManagedProperty("password")
+    private String password;
+    @ManagedProperty("remember")
+    private Boolean remember;
+
+    LoginService loginService = new LoginService();
+
     public String login() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String username = getParameterByName("username");
-        String password = getParameterByName("password");
-        System.out.println(username);
+        boolean loginStatus = loginService.login(email, password, remember);
+        if (loginStatus) {
+            Util.redirect("dashboard.xhtml");
+        }
         return "login";
     }
 
-    public String getParameterByName(String name) {
-        HttpServletRequest req = getRequest();
-        return req.getParameter(name);
-    }
 
-    public HttpServletRequest getRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    }
 
     public String logout() {
         return "login";
