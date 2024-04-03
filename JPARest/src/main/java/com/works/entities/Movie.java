@@ -16,16 +16,16 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
 
-    @Size(min = 3, max = 200)
+    @Size(min = 0, max = 1500)
     @NotEmpty
     @NotNull
-    @Column(length = 200)
+    @Column(length = 1500)
     private String title;
 
-    @Size(min = 3, max = 500)
+    @Size(min = 0, max = 1500)
     @NotEmpty
     @NotNull
-    @Column(length = 500)
+    @Column(length = 1500)
     private String detail;
 
     @ManyToMany
