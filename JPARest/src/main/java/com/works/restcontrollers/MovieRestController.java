@@ -29,9 +29,15 @@ public class MovieRestController {
     public Page<Movie> allMovie(
             @RequestParam(defaultValue = "0") int pageCount,
             @RequestParam(defaultValue = "10") int pageSize,
-            @RequestParam(defaultValue = "mid") String attr
+            @RequestParam(defaultValue = "mid") String attr,
+            @RequestParam(defaultValue = "") String q
     ) {
-        return movieService.allMovie(pageCount, pageSize, attr);
+        return movieService.allMovie(pageCount, pageSize, attr, q);
+    }
+
+    @GetMapping("category/{cid}")
+    public List<Movie> category(@PathVariable Long cid) {
+        return movieService.category(cid);
     }
 
 }

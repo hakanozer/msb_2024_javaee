@@ -25,17 +25,21 @@ public class MovieService {
         return movieRepository.saveAll(movies);
     }
 
-    public Page<Movie> allMovie(int pageCount, int pageSize, String attr) {
+    public Page<Movie> allMovie(int pageCount, int pageSize, String attr, String q) {
         Sort sort = Sort.by(attr).ascending();
         int newPageSize = pageSize > 50 ? 10 : pageSize;
         newPageSize = newPageSize < 0 ? 10 : newPageSize;
         Pageable pageable = PageRequest.of(pageCount, newPageSize, sort);
         try {
-            return movieRepository.findAll(pageable);
+            return movieRepository.findByTitleContainsOrDetailContainsAllIgnoreCase(q, q, pageable);
         }catch (Exception Ex) {
             pageable = PageRequest.of(pageCount, newPageSize);
-            return movieRepository.findAll(pageable);
+            return movieRepository.findByTitleContainsOrDetailContainsAllIgnoreCase(q, q, pageable);
         }
+    }
+
+    public List<Movie> category(Long cid) {
+        return movieRepository.findByCategories_CidEquals(cid);
     }
 
 }
